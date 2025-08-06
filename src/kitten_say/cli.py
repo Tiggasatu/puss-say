@@ -36,6 +36,7 @@ def say_text(
     text: str,
     voice: str = DEFAULT_VOICE,
     output_file: str | None = None,
+    speed: float = 1.0,
 ) -> None:
     """Generate and play TTS audio."""
     # Initialize the model
@@ -43,7 +44,7 @@ def say_text(
 
     # Generate audio
     try:
-        audio = model.generate(text, voice=voice)
+        audio = model.generate(text, voice=voice, speed=speed)
     except RuntimeError as e:
         print(f"Error generating speech: {e}", file=sys.stderr)
         sys.exit(1)
@@ -76,6 +77,8 @@ Examples:
   kitten-say "Hello, world!"
   kitten-say -v expr-voice-3-m "Hello from a male voice"
   kitten-say -o output.wav "Save this to a file"
+  kitten-say -s 0.8 "Speak slowly"
+  kitten-say -s 1.5 "Speak faster"
   echo "Pipe text to speech" | kitten-say
   kitten-say -l  # List available voices
         """,
@@ -116,6 +119,15 @@ Examples:
         help="Interactive mode - keep reading lines from stdin",
     )
 
+    parser.add_argument(
+        "-s",
+        "--speed",
+        type=float,
+        default=1.0,
+        metavar="SPEED",
+        help="Speech speed (default: 1.0, range: 0.5-2.0)",
+    )
+
     args = parser.parse_args()
 
     # Handle list voices
@@ -131,7 +143,7 @@ Examples:
                 try:
                     text = input("> ")
                     if text.strip():
-                        say_text(text, voice=args.voice)
+                        say_text(text, voice=args.voice, speed=args.speed)
                 except EOFError:
                     print("\nExiting...")
                     break
@@ -150,7 +162,7 @@ Examples:
             parser.error("No text provided. Use --help for usage information.")
 
     # Generate and play/save speech
-    say_text(text, voice=args.voice, output_file=args.output)
+    say_text(text, voice=args.voice, output_file=args.output, speed=args.speed)
 
 
 if __name__ == "__main__":
