@@ -6,6 +6,7 @@ A command-line text-to-speech tool that mimics macOS's `say` command, powered by
 
 - High-quality text-to-speech using KittenTTS
 - Multiple voice options (male and female)
+- Adjustable speech speed
 - Save output to WAV files
 - Interactive mode for continuous speech
 - Pipe text from stdin
@@ -52,6 +53,12 @@ kitten-say -v expr-voice-3-m "Hello from a male voice"
 Save to file:
 ```bash
 kitten-say -o output.wav "Save this speech to a file"
+```
+
+Adjust speech speed:
+```bash
+kitten-say -s 0.8 "Speak more slowly"
+kitten-say -s 1.5 "Speak faster"
 ```
 
 Pipe text:
