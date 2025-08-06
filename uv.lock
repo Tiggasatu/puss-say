@@ -406,7 +406,6 @@ version = "0.1.0"
 source = { editable = "." }
 dependencies = [
     { name = "kittentts" },
-    { name = "numpy" },
     { name = "sounddevice" },
     { name = "soundfile" },
 ]
@@ -420,7 +419,6 @@ dev = [
 [package.metadata]
 requires-dist = [
     { name = "kittentts", git = "https://github.com/KittenML/KittenTTS.git" },
-    { name = "numpy", specifier = ">=1.26.0" },
     { name = "sounddevice", specifier = ">=0.5.0" },
     { name = "soundfile", specifier = ">=0.12.1" },
 ]
