@@ -1,0 +1,47 @@
+[project]
+name = "kitten-say"
+version = "0.1.0"
+description = "A CLI tool that mimics macOS say command using KittenTTS"
+readme = "README.md"
+license = { text = "MIT" }
+authors = [
+  { name = "Jörg Thalheim", email = "joerg@thalheim.io" },
+]
+requires-python = ">=3.13"
+dependencies = [
+    "kittentts @ git+https://github.com/KittenML/KittenTTS.git",
+    "soundfile>=0.12.1",
+    "sounddevice>=0.5.0",
+]
+
+[project.scripts]
+kitten-say = "kitten_say:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[dependency-groups]
+dev = [
+    "ruff>=0.6.7",
+    "mypy>=1.11.0",
+]
+
+[tool.ruff]
+line-length = 88
+target-version = "py313"
+
+[tool.ruff.lint]
+select = ["ALL"]
+ignore = [
+    "T201",  # Allow print statements
+    "D203",  # Incompatible with D211
+    "D213",  # Incompatible with D212
+]
+
+[tool.mypy]
+python_version = "3.13"
+strict = true
+
+[tool.hatch.metadata]
+allow-direct-references = true
