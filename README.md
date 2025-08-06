@@ -17,7 +17,7 @@ A command-line text-to-speech tool that mimics macOS's `say` command, powered by
 
 ```bash
 # Run directly
-nix run github:yourusername/kitten-say -- "Hello, world!"
+nix run github:Mic92/kitten-say -- "Hello, world!"
 
 # Build and run locally
 nix build
