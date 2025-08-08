@@ -145,9 +145,6 @@
           ]
         );
 
-        # Import utility functions
-        inherit (pkgs.callPackage pyproject-nix.build.util { }) mkApplication;
-
         # Create base virtualenv
         baseVirtualenv = pythonSet.mkVirtualEnv "puss-say-env" workspace.deps.default;
 
@@ -164,8 +161,11 @@
             # Wrap the installed binary with proper paths
             postInstall = (old.postInstall or "") + ''
               # Wrap the binary with necessary runtime libraries and Python path
+              # binutils is needed for `ld` so it can find the libraries
+
               wrapProgram $out/bin/puss-say \
                 --prefix LD_LIBRARY_PATH : ${pkgs.lib.makeLibraryPath runtimeLibs} \
+                --prefix PATH : ${pkgs.binutils}/bin \
                 --set PYTHONPATH "${baseVirtualenv}/${python.sitePackages}"
             '';
           });
