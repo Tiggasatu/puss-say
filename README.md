@@ -25,6 +25,13 @@ nix build
 ./result/bin/puss-say "Hello, world!"
 ```
 
+### Using uvx
+
+```bash
+# Run directly from GitHub (requires PortAudio installed)
+uvx --from 'git+https://github.com/Mic92/puss-say' puss-say "Hello, world!"
+```
+
 ### Development
 
 ```bash
@@ -36,6 +43,9 @@ puss-say "Hello from the development shell!"
 
 # Or use uv directly for Python package management
 uv sync
+uv run puss-say "Hello from uv!"
+# Note: uv run requires PortAudio to be installed on your system
+# For a complete environment with all dependencies, use 'nix develop'
 ```
 
 ## Usage

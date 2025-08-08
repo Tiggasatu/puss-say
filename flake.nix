@@ -30,6 +30,13 @@
         pkgs = nixpkgs.legacyPackages.${system};
         python = pkgs.python313;
 
+        # Common runtime libraries needed for audio
+        runtimeLibs = [
+          pkgs.portaudio
+          pkgs.libsndfile
+          pkgs.stdenv.cc.cc.lib
+        ];
+
         # Load workspace from current directory
         workspace = uv2nix.lib.workspace.loadWorkspace {
           workspaceRoot = ./.;
@@ -118,11 +125,7 @@
 
             postInstall = (old.postInstall or "") + ''
               wrapProgram $out/bin/puss-say \
-                --prefix LD_LIBRARY_PATH : ${pkgs.lib.makeLibraryPath [
-                  pkgs.portaudio
-                  pkgs.libsndfile
-                  pkgs.stdenv.cc.cc.lib
-                ]}
+                --prefix LD_LIBRARY_PATH : ${pkgs.lib.makeLibraryPath runtimeLibs}
             '';
 
             nativeBuildInputs = (old.nativeBuildInputs or []) ++ [
@@ -162,11 +165,7 @@
             postInstall = (old.postInstall or "") + ''
               # Wrap the binary with necessary runtime libraries and Python path
               wrapProgram $out/bin/puss-say \
-                --prefix LD_LIBRARY_PATH : ${pkgs.lib.makeLibraryPath [
-                  pkgs.portaudio
-                  pkgs.libsndfile
-                  pkgs.stdenv.cc.cc.lib
-                ]} \
+                --prefix LD_LIBRARY_PATH : ${pkgs.lib.makeLibraryPath runtimeLibs} \
                 --set PYTHONPATH "${baseVirtualenv}/${python.sitePackages}"
             '';
           });
@@ -190,6 +189,9 @@
             
             # Prevent uv from downloading managed Python's
             UV_PYTHON_DOWNLOADS = "never";
+            
+            # Set LD_LIBRARY_PATH for portaudio and other libraries
+            LD_LIBRARY_PATH = pkgs.lib.makeLibraryPath runtimeLibs;
           };
 
           shellHook = ''
