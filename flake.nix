@@ -1,5 +1,5 @@
 {
-  description = "kitten-say: A CLI tool that mimics macOS say command using KittenTTS";
+  description = "puss-say: A CLI tool that mimics macOS say command using KittenTTS";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
@@ -110,14 +110,14 @@
           });
 
           # Add runtime library dependencies
-          kitten-say = prev.kitten-say.overrideAttrs (old: {
+          puss-say = prev.puss-say.overrideAttrs (old: {
             propagatedBuildInputs = (old.propagatedBuildInputs or []) ++ [
               pkgs.portaudio
               pkgs.libsndfile
             ];
 
             postInstall = (old.postInstall or "") + ''
-              wrapProgram $out/bin/kitten-say \
+              wrapProgram $out/bin/puss-say \
                 --prefix LD_LIBRARY_PATH : ${pkgs.lib.makeLibraryPath [
                   pkgs.portaudio
                   pkgs.libsndfile
@@ -146,13 +146,13 @@
         inherit (pkgs.callPackage pyproject-nix.build.util { }) mkApplication;
 
         # Create base virtualenv
-        baseVirtualenv = pythonSet.mkVirtualEnv "kitten-say-env" workspace.deps.default;
+        baseVirtualenv = pythonSet.mkVirtualEnv "puss-say-env" workspace.deps.default;
 
       in
       {
         packages = {
           # Use the individual package directly with proper wrapping
-          default = pythonSet.kitten-say.overrideAttrs (old: {
+          default = pythonSet.puss-say.overrideAttrs (old: {
             # Add makeWrapper to wrap the binary
             nativeBuildInputs = (old.nativeBuildInputs or []) ++ [
               pkgs.makeWrapper
@@ -161,7 +161,7 @@
             # Wrap the installed binary with proper paths
             postInstall = (old.postInstall or "") + ''
               # Wrap the binary with necessary runtime libraries and Python path
-              wrapProgram $out/bin/kitten-say \
+              wrapProgram $out/bin/puss-say \
                 --prefix LD_LIBRARY_PATH : ${pkgs.lib.makeLibraryPath [
                   pkgs.portaudio
                   pkgs.libsndfile

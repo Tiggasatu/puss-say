@@ -1,5 +1,5 @@
 [project]
-name = "kitten-say"
+name = "puss-say"
 version = "0.1.0"
 description = "A CLI tool that mimics macOS say command using KittenTTS"
 readme = "README.md"
@@ -15,7 +15,7 @@ dependencies = [
 ]
 
 [project.scripts]
-kitten-say = "kitten_say:main"
+puss-say = "puss_say:main"
 
 [build-system]
 requires = ["hatchling"]

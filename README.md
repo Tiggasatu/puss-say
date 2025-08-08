@@ -1,4 +1,4 @@
-# kitten-say
+# puss-say
 
 A command-line text-to-speech tool that mimics macOS's `say` command, powered by [KittenTTS](https://github.com/KittenML/KittenTTS).
 
@@ -18,11 +18,11 @@ A command-line text-to-speech tool that mimics macOS's `say` command, powered by
 
 ```bash
 # Run directly
-nix run github:Mic92/kitten-say -- "Hello, world!"
+nix run github:Mic92/puss-say -- "Hello, world!"
 
 # Build and run locally
 nix build
-./result/bin/kitten-say "Hello, world!"
+./result/bin/puss-say "Hello, world!"
 ```
 
 ### Development
@@ -31,8 +31,8 @@ nix build
 # Enter development shell with all dependencies
 nix develop
 
-# kitten-say is now available in your PATH
-kitten-say "Hello from the development shell!"
+# puss-say is now available in your PATH
+puss-say "Hello from the development shell!"
 
 # Or use uv directly for Python package management
 uv sync
@@ -42,40 +42,40 @@ uv sync
 
 Basic usage:
 ```bash
-kitten-say "Hello, world!"
+puss-say "Hello, world!"
 ```
 
 Choose a different voice:
 ```bash
-kitten-say -v expr-voice-3-m "Hello from a male voice"
+puss-say -v expr-voice-3-m "Hello from a male voice"
 ```
 
 Save to file:
 ```bash
-kitten-say -o output.wav "Save this speech to a file"
+puss-say -o output.wav "Save this speech to a file"
 ```
 
 Adjust speech speed:
 ```bash
-kitten-say -s 0.8 "Speak more slowly"
-kitten-say -s 1.5 "Speak faster"
+puss-say -s 0.8 "Speak more slowly"
+puss-say -s 1.5 "Speak faster"
 ```
 
 Pipe text:
 ```bash
-echo "This text is piped" | kitten-say
+echo "This text is piped" | puss-say
 ```
 
 Interactive mode:
 ```bash
-kitten-say -i
+puss-say -i
 # Type text and press Enter to hear it spoken
 # Press Ctrl+D to exit
 ```
 
 List available voices:
 ```bash
-kitten-say --list-voices
+puss-say --list-voices
 ```
 
 ## Available Voices

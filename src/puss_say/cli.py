@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""CLI interface for kitten-say command."""
+"""CLI interface for puss-say command."""
 
 import argparse
 import sys
@@ -74,13 +74,13 @@ def main() -> None:
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
-  kitten-say "Hello, world!"
-  kitten-say -v expr-voice-3-m "Hello from a male voice"
-  kitten-say -o output.wav "Save this to a file"
-  kitten-say -s 0.8 "Speak slowly"
-  kitten-say -s 1.5 "Speak faster"
-  echo "Pipe text to speech" | kitten-say
-  kitten-say -l  # List available voices
+  puss-say "Hello, world!"
+  puss-say -v expr-voice-3-m "Hello from a male voice"
+  puss-say -o output.wav "Save this to a file"
+  puss-say -s 0.8 "Speak slowly"
+  puss-say -s 1.5 "Speak faster"
+  echo "Pipe text to speech" | puss-say
+  puss-say -l  # List available voices
         """,
     )
 
